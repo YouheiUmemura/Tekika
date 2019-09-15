@@ -1,0 +1,15 @@
+<div class="col-sm-8">
+    <ul class="nav nav-tabs nav-justified mb-3">
+      <li class="nav-item">
+        <a href="<%= evaluates_user_path(@user) %>" class="nav-link 
+            <%= 'active' if current_page?(evaluates_user_path(@user)) %>">Evaluate
+          <span class="badge badge-secondary">
+            <%= @count_evaluates %>
+          </span>
+        </a>
+      </li>
+    </ul>
+    <%= render 'products/products', products: @evaluates %>
+  </div>
+  
+ 

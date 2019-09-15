@@ -1,21 +1,33 @@
 <div class="row">
-  <aside class="col-sm-4">
+  <aside class="profile">
     <div class="card">
       <div class="card-header">
         <h3 class="card-title">
           <%= @user.name %>
         </h3>
       </div>
-      <div class="card-body">
-        <img class="rounded img-fluid" src="<%= gravatar_url(@user, { size: 500 }) %>" alt="">
+        <div class="card-body">
+          <% if @user.image? %>
+            <%= image_tag @user.image.url, :size => '220x220' %>
+          <% else %>
+            <%= image_tag "/assets/face.jpg", :size => '220x220' %>
+          <% end %>
+        </div>
       </div>
+   
+    <div class="card-footer">
+      <p><%= @user.intro %></p>
     </div>
+    <%if current_user == @user %>
+    <li class="profileedit">
+      <%= link_to 'プロフィールを編集する', edit_user_path(@user), class: 'btn btn-lg btn-primary'  %>
+    </li>
+    <li class="profileproduct">
+      <%= link_to '出品した商品', exhibition_path(@user), class: 'btn btn-lg btn-primary'  %>
+    </li>
+    <li class="nav-item"><a href="<%= evaluates_user_path(@user) %>" class="nav-link <%= 'active' if current_page?(evaluates_user_path(@user)) %>">評価  <span class="badge badge-secondary"><%= @count_evaluates %></span></a></li>
+    <li class="nav-item"><a href="<%= likes_user_path(@user) %>" class="nav-link <%= 'active' if current_page?(likes_user_path(@user)) %>">Likes  <span class="badge badge-secondary"><%= @count_likes %></span></a></li>
+    
+    <% end %>
   </aside>
-  <div class="col-sm-8">
-    <ul class="nav nav-tabs nav-justified mb-3">
-      <li class="nav-item">
-        <a href="#" class="nav-link">出品商品一覧</a>
-      </li>
-    </ul>
-  </div>
 </div>

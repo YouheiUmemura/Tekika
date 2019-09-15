@@ -1,0 +1,53 @@
+<div>
+    <div>
+        
+            <li class="title"><%= @product.title %></li>
+            <li class="image"><%= image_tag @product.image.to_s %></li>
+            
+
+        <div class="details">
+            
+            <p class="detail">
+                講義名：<%= @product.lecture %><br/>
+            大学名：<%= @product.university %><br/>
+            受け渡し場所：<%= @product.place %><br/>
+            書き込み：<%= @product.writing %><br/>
+            </p>
+        </div>
+        
+        <li class="price">¥<%= @product.price %>
+        <%= render 'favorites/favorite_button', product: @product %></li>
+    </div>
+</div>
+<div>
+
+<% if current_user == @product.user %>
+
+  <%= link_to '編集', "/products/#{@product.id}/edit", method: :get , class: 'btn btn-danger btn-sm'%>
+  <%= link_to "削除", @product, method: :delete, data: { confirm: "本当にこの商品を削除しますか？" }, class: 'btn btn-danger btn-sm' %>
+  <% if @currentUserEntry.present? %>
+   <%= link_to 'talkroom', "/products/#{@product.id}/chat", method: :get, class: 'btn btn-danger btn-sm'%>
+  <% end %>
+
+    
+<% else %>
+   <% if @isRoom == true %>
+    <div class="chat"><a href="/rooms/<%= @roomId %>"> チャットする</a></div>
+  <% else %>
+    <%= form_for @room do |f| %>
+    <%= f.hidden_field :product_id, :value => @product.id %>
+      <%= fields_for @entry do |e| %>
+        <%= e.hidden_field :user_id, :value => @user.id %>
+        <%= e.hidden_field :product_id, :value => @product.id %>
+      <% end %>
+      <%= f.submit "購入する" %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<!--購入者からチャットへいけるけど、出品者からチャットへいけない。-->
+
+
+</div>
+
+

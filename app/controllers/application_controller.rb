@@ -8,4 +8,10 @@ class ApplicationController < ActionController::Base
 			redirect_to login_url
 		end
 	end
+	
+	def counts(user)
+		@count_products = user.products.count
+		@count_likes = user.likes.count
+		@count_evaluates = user.evaluates.count
+	end
 end

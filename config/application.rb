@@ -11,6 +11,8 @@ require "action_mailer/railtie"
 require "action_view/railtie"
 require "action_cable/engine"
 require "sprockets/railtie"
+
+
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -28,6 +30,11 @@ module Tekika
     # the framework and any gems in your application.
 
     # Don't generate system test files.
-    config.generators.system_tests = nil
+    config.assets.paths << Rails.root.join('public')
+    config.assets.precompile << %w( cancel-off.png cencel-on.png star-off.png star-on.png star-half.png)
+    
   end
 end
+
+
+
